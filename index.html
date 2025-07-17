@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sunil Balendran Portfolio</title>
+    <meta name="description" content="Sunil Balendran's Portfolio" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-white text-gray-900">
+    <header class="text-center py-10 bg-gray-100 shadow">
+      <h1 class="text-4xl font-bold">Sunil Balendran</h1>
+      <p class="text-lg text-gray-600">AI | Analytics | Project Management</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-6">
+      <section class="mb-10 text-center">
+        <p class="text-lg">
+          I recently graduated from McMaster University with a degree in
+          <strong class="text-blue-600">Engineering Physics & Management</strong>.
+          My portfolio showcases projects across three core areas:
+          <strong>AI, Analytics, and Project Management</strong>.
+        </p>
+      </section>
+
+      <section class="mb-12">
+        <div class="flex justify-center space-x-4 mb-6">
+          <button class="filter-btn px-4 py-2 bg-blue-500 text-white rounded" data-category="all">All</button>
+          <button class="filter-btn px-4 py-2 bg-purple-500 text-white rounded" data-category="AI">AI</button>
+          <button class="filter-btn px-4 py-2 bg-green-500 text-white rounded" data-category="Analytics">Analytics</button>
+          <button class="filter-btn px-4 py-2 bg-yellow-500 text-white rounded" data-category="Project Management">Project Management</button>
+        </div>
+
+        <div id="project-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- JS will insert project cards here -->
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const projects = [
+        {
+          title: "AI Blackjack Dealer",
+          category: ["AI", "Analytics", "Project Management"],
+          description: "Built a real-time blackjack game using gesture recognition and card detection.",
+          tags: ["TensorFlow", "OpenCV", "MediaPipe", "Python"]
+        },
+        {
+          title: "Process Optimization at CenterLine",
+          category: ["Analytics", "Project Management"],
+          description: "Evaluated tool management systems and delivered a roadmap to save $150K annually.",
+          tags: ["Business Analysis", "Consulting", "Workflow Design"]
+        }
+      ];
+
+      const grid = document.getElementById('project-grid');
+
+      function renderProjects(filter) {
+        grid.innerHTML = '';
+        projects.forEach(project => {
+          if (filter === 'all' || project.category.includes(filter)) {
+            const card = document.createElement('div');
+            card.className = "bg-white border border-gray-200 shadow rounded p-4";
+            card.innerHTML = `
+              <h2 class="text-xl font-semibold mb-2">${project.title}</h2>
+              <p class="text-sm mb-2">${project.description}</p>
+              <div class="text-xs text-gray-600">${project.tags.join(', ')}</div>
+            `;
+            grid.appendChild(card);
+          }
+        });
+      }
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('opacity-50'));
+          btn.classList.add('opacity-50');
+          renderProjects(btn.getAttribute('data-category'));
+        });
+      });
+
+      renderProjects('all');
+    </script>
+  </body>
+</html>
